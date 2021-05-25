@@ -213,23 +213,23 @@ Two causes of death stood out as having spiked in Texas in the week following th
 
 ### Cardiovascular disease
 
-![](tx_causes/diseases of heart.png)
+![](causes/diseases of heart_Texas.png)
 
 ### Diabetes
 
-![](tx_causes/diabetes mellitus.png)
+![](causes/diabetes mellitus_Texas.png)
 
 ### COVID-19
 
 For comparison, here are deaths with COVID-19 as the underlying cause. This reflects the decline from January onward as the fall/winter surge of COVID-19 subsided. 
 
-![](tx_causes/covid.png)
+![](causes/covid_Texas.png)
 
 ### Cause not established
 
 Some deaths have not yet been attributed to a cause. It is normal for these numbers to be high for more recent weeks, however there also seems to be a spike in the week following the storm:
 
-![](tx_causes/other.png)
+![](causes/other_Texas.png)
 
 ### Analysis of previous extreme weather disasters
 
