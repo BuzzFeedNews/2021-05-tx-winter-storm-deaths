@@ -10,7 +10,7 @@ Data and [R](https://www.r-project.org/) code to reproduce the analysis and char
 
 ### Data and setting up
 
-The CDC maintains counts of weekly deaths, for all and certain selected causes, at the national and state level (also for New York City, Washington, DC, and Puerto Rico), for [2014 to 2019](https://data.cdc.gov/NCHS/Weekly-Counts-of-Deaths-by-State-and-Select-Causes/3yf8-kanr), and for [2020 and 2021](https://data.cdc.gov/NCHS/Weekly-Counts-of-Deaths-by-State-and-Select-Causes/muzy-jte6). This analysis uses a snapshot of that data captured on May 23, 2021, covering deaths recorded from January 1, 2015, to March 27, 2021. 
+The CDC maintains counts of weekly deaths, for all and certain selected causes, at the national and state level (also for New York City, Washington, DC, and Puerto Rico), for [2014 to 2019](https://data.cdc.gov/NCHS/Weekly-Counts-of-Deaths-by-State-and-Select-Causes/3yf8-kanr), and for [2020 and 2021](https://data.cdc.gov/NCHS/Weekly-Counts-of-Deaths-by-State-and-Select-Causes/muzy-jte6). This analysis uses a snapshot of that data captured on May 23, 2021, saved in a single CSV file, covering deaths recorded from January 1, 2015, to March 27, 2021. 
 
 
 ```{r}
