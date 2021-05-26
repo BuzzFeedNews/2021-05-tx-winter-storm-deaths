@@ -6,7 +6,7 @@ title: "Texas winter storm excess deaths analysis"
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, results = FALSE, message = FALSE)
 ```
 
-Data and [R](https://www.r-project.org/) code to reproduce the analysis and charts underlying [this May 26, 2021 BuzzFeed News article](https://www.buzzfeednews.com/article/peteraldhous/texas-winter-storm-disaster-deaths) on the excess deaths caused by the February 2021 winter storm and power outages in Texas.
+Data and [R](https://www.r-project.org/) code to reproduce the analysis and charts underlying [this May 26, 2021 BuzzFeed News article](https://www.buzzfeednews.com/article/peteraldhous/texas-winter-storm-power-outage-death-toll) on the excess deaths caused by the February 2021 winter storm and power outages in Texas.
 
 ### Data and setting up
 
@@ -61,8 +61,8 @@ for (j in unique(mortality_working$jurisdiction)) {
   tmp <- mortality_working %>%
     filter(jurisdiction == j)
   plot <- ggplot(tmp) + 
-    geom_point(aes(y=allcause, x=weekendingdate), alpha = 0.6, size = 0.5) +
-    geom_line(aes(y=fit, x=weekendingdate), color = "#ef3b2c") +
+    geom_point(aes(y = allcause, x = weekendingdate), alpha = 0.6, size = 0.5) +
+    geom_line(aes(y = fit, x = weekendingdate), color = "#ef3b2c") +
     scale_y_continuous(labels = comma) +
     xlab("") + ylab("Deaths") +
     ggtitle(j) +
@@ -79,7 +79,7 @@ Here is the chart for Texas:
 
 ![](predictions/Texas.png)
 
-There are two large peaks in deaths since the start of 2020 in Texas, which correspond to the summer and fall/winter surges in COVID-19 in the state. Charts for other jurisdictions are in the `predictions` folder.
+There are two large peaks in deaths since the start of 2020 in Texas, which correspond to the summer and fall/winter surges in COVID-19 in the state. Charts for other jurisdictions are in the [predictions](https://github.com/BuzzFeedNews/2021-05-tx-winter-storm-deaths/tree/main/predictions) folder.
 
 ### Calculating weekly death anomalies
 
@@ -119,11 +119,11 @@ for (j in unique(mortality_working$jurisdiction)) {
 rm(tmp,plot)
 ```
 
-The chart for Texas is below. The shaded area represents weekly death anomalies for all causes. The red line shows anomalies for deaths in which COVID-19 was not identified as the underlying cause. It seems that the under-reporting of deaths associated with COVID-19 was a big problem in the early stages of the pandemic, but reduced significantly in more recent months. 
+The chart for Texas is below. The shaded area represents weekly death anomalies for all causes. The red line shows anomalies for deaths in which COVID-19 was not identified as the underlying cause. It seems that the under-reporting of deaths associated with COVID-19 was a problem in the early stages of the pandemic, but reduced significantly in more recent months. 
 
 ![](anomalies/Texas.png)
 
-Charts for other jurisdictions are in the `anomalies` folder. 
+Charts for other jurisdictions are in the [anomalies](https://github.com/BuzzFeedNews/2021-05-tx-winter-storm-deaths/tree/main/anomalies) folder. 
 
 ### Excess non COVID-19 deaths in the weeks surrounding the winter storm in Texas and neighboring states
 
@@ -136,9 +136,9 @@ key_states_excess <- mortality_working %>%
 
 plot <- ggplot(key_states_excess, aes(x = weekendingdate, y = non_covid_deaths_anomaly)) +
   geom_col(fill = "#ef3b2c") +
-  geom_errorbar(aes(x=weekendingdate,
-                    ymin=non_covid_deaths_anomaly_lwr,
-                    ymax=non_covid_deaths_anomaly_upr),
+  geom_errorbar(aes(x = weekendingdate,
+                    ymin = non_covid_deaths_anomaly_lwr,
+                    ymax = non_covid_deaths_anomaly_upr),
                 size = 0.1,
                 width = 0.6) +
   geom_hline(yintercept = 0, size = 0.3) +
@@ -159,7 +159,7 @@ ggsave(paste0("img/key_states.png"), plot, width = 20, height = 12, units = "cm"
 rm(plot)
 ```
 
-The chart below shows the weekly death anomalies from causes other than COVID-19, with error bars based on the 95% confidence intervals for each expected deaths prediction. It shows a significant spike in non-COVID deaths in Texas in the week ending Feb 20, immediately following the winter storm and when the power outages occurred, that greatly exceeds the [official tally](https://www.dshs.state.tx.us/news/updates.shtm#wn) of storm-related deaths being put together by the Texas Department of State Health Services -- which currently stands at 151. Our best estimate is that 702 excess deaths occurred in Texas in the week ending February 20 alone, with a range of uncertainty from 426 to 978.
+The chart below shows the weekly death anomalies from causes other than COVID-19, with error bars based on the 95% confidence intervals for each expected deaths prediction. It shows a significant spike in non-COVID deaths in Texas in the week ending Feb 20, immediately following the winter storm and when the power outages occurred, that greatly exceeds the [official tally](https://web.archive.org/web/20210526151612/https://dshs.texas.gov/news/updates.shtm#wn) of storm-related deaths being put together by the Texas Department of State Health Services -- which currently stands at 151. Our best estimate is that 702 excess deaths occurred in Texas in the week ending February 20 alone, with a range of uncertainty from 426 to 978.
 
 ![](img/key_states.png) 
 
@@ -183,7 +183,7 @@ causes <- mortality_working %>%
          plot_year = case_when(year == "2021" ~ "2021",
                                year == "2020" ~ "2020",
                                TRUE ~ "Previous years"),
-         plot_date = ymd(paste("2021",month(weekendingdate),day(weekendingdate))))
+         plot_date = ymd(paste("2020",month(weekendingdate),day(weekendingdate))))
 
 for (j in unique(mortality_working$jurisdiction)) {
   print(j)
@@ -192,7 +192,7 @@ for (j in unique(mortality_working$jurisdiction)) {
   for (c in unique(tmp1$cause)) {
     tmp2 <- tmp1 %>%
       filter(cause == c)
-    plot <- ggplot(tmp2, aes(x= plot_date, y = deaths, group = year, color = plot_year)) +
+    plot <- ggplot(tmp2, aes(x = plot_date, y = deaths, group = year, color = plot_year)) +
       geom_line() +
       geom_point() +
       scale_y_continuous(labels = comma) +
@@ -213,15 +213,17 @@ Two causes of death stood out as having spiked in Texas in the week following th
 
 ### Cardiovascular disease
 
+<br>
 ![](causes/diseases of heart_Texas.png)
 
 ### Diabetes
 
+<br>
 ![](causes/diabetes mellitus_Texas.png)
 
 ### COVID-19
 
-For comparison, here are deaths with COVID-19 as the underlying cause. This reflects the decline from January onward as the fall/winter surge of COVID-19 subsided. 
+For comparison, here are deaths with COVID-19 as the underlying cause. This reflects the decline from January onward as the fall/winter surge of COVID-19 subsided. These deaths were excluded from our estimate of excess deaths.
 
 ![](causes/covid_Texas.png)
 
@@ -244,9 +246,9 @@ key_states_excess_harvey <- mortality_working %>%
 
 plot <- ggplot(key_states_excess_harvey, aes(x = weekendingdate, y = deaths_anomaly)) +
   geom_col(fill = "#ef3b2c") +
-  geom_errorbar(aes(x=weekendingdate,
-                    ymin=deaths_anomaly_lwr,
-                    ymax=deaths_anomaly_upr),
+  geom_errorbar(aes(x = weekendingdate,
+                    ymin = deaths_anomaly_lwr,
+                    ymax = deaths_anomaly_upr),
                 size = 0.1,
                 width = 0.6) +
   geom_hline(yintercept = 0, size = 0.3) +
@@ -304,8 +306,9 @@ maria_estimate <- pr_excess_maria %>%
 
 ```
 
-In this case there was a clear excess deaths signal. Our best estimate of the excess deaths from Hurricane Maria for the weeks ending Sept. 23, 2017 to Oct. 28, 2017, is 961. In [this piece](https://www.nytimes.com/interactive/2017/12/08/us/puerto-rico-hurricane-maria-death-toll.html), covering the period Sept. 20 to Oct. 31 and using data from Puerto Rico’s vital statistics bureau, the New York Times estimated 1,052. A [study](http://prstudy.publichealth.gwu.edu/sites/prstudy.publichealth.gwu.edu/files/reports/Acertainment%20of%20the%20Estimated%20Excess%20Mortality%20from%20Hurricane%20Maria%20in%20Puerto%20Rico.pdf) from researchers at George Washington University, covering a longer period up to February 2018, estimated that 2,975 people were killed by the storm and power outages.
+In this case there was a clear excess deaths signal. Our best estimate of the excess deaths from Hurricane Maria for the weeks ending Sept. 23, 2017 to Oct. 28, 2017, is 961. In [this piece](https://www.nytimes.com/interactive/2017/12/08/us/puerto-rico-hurricane-maria-death-toll.html), covering the period Sept. 20 to Oct. 31 and using data from Puerto Rico’s vital statistics bureau, the New York Times estimated 1,052.
 
+<br>
 ![](img/pr_maria.png)
 
 ### Acknowledgments
